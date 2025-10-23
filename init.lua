@@ -1,45 +1,15 @@
---[[
-Based on the [Kickstart config](https://github.com/nvim-lua/kickstart.nvim)
+-- Based on the [Kickstart config](https://github.com/nvim-lua/kickstart.nvim)
 
-Kickstart Guide:
-
-  I have left several `:help X` comments throughout the init.lua
-    These are hints about where to find more information about the relevant settings,
-    plugins or Neovim features used in Kickstart.
-
-   NOTE: Look for lines like this
-
-    Throughout the file. These are for you, the reader, to help you understand what is happening.
-    Feel free to delete them once you know what you're doing, but they should serve as a guide
-    for when you are first encountering a few different constructs in your Neovim config.
-
-If you experience any errors while trying to install kickstart, run `:checkhealth` for more info.
-
-I hope you enjoy your Neovim journey,
-- TJ
-
-P.S. You can delete this when you're done too. It's your config now! :)
---]]
-
--- Set <space> as the leader key
--- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
-vim.g.mapleader = " "
+vim.g.mapleader = ","
 vim.g.maplocalleader = " "
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = false
 
 -- [[ Setting options ]]
--- See `:help vim.o`
--- NOTE: You can change these options as you wish!
---  For more options, you can see `:help option-list`
-
 -- Make line numbers default
 vim.o.number = true
--- You can also add relative line numbers, to help with jumping.
---  Experiment for yourself to see if you like it!
--- vim.o.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.o.mouse = "a"
@@ -79,13 +49,6 @@ vim.o.splitright = true
 vim.o.splitbelow = true
 
 -- Sets how neovim will display certain whitespace characters in the editor.
---  See `:help 'list'`
---  and `:help 'listchars'`
---
---  Notice listchars is set using `vim.opt` instead of `vim.o`.
---  It is very similar to `vim.o` but offers an interface for conveniently interacting with tables.
---   See `:help lua-options`
---   and `:help lua-options-guide`
 vim.o.list = true
 vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
@@ -104,8 +67,6 @@ vim.o.scrolloff = 10
 vim.o.confirm = true
 
 -- [[ Basic Keymaps ]]
---  See `:help vim.keymap.set()`
-
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>")
@@ -129,22 +90,12 @@ vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" }
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
---
---  See `:help wincmd` for a list of all window commands
 vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window" })
 vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window" })
 vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window" })
 vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window" })
 
--- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
--- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
--- vim.keymap.set("n", "<C-S-l>", "<C-w>L", { desc = "Move window to the right" })
--- vim.keymap.set("n", "<C-S-j>", "<C-w>J", { desc = "Move window to the lower" })
--- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
-
 -- [[ Basic Autocommands ]]
---  See `:help lua-guide-autocommands`
-
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
 --  See `:help vim.hl.on_yank()`
@@ -157,7 +108,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 -- [[ Install `lazy.nvim` plugin manager ]]
---    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -363,19 +313,19 @@ require("lazy").setup({
 
 			-- See `:help telescope.builtin`
 			local builtin = require("telescope.builtin")
-			vim.keymap.set("n", "<leader>sh", builtin.help_tags, { desc = "[S]earch [H]elp" })
-			vim.keymap.set("n", "<leader>sk", builtin.keymaps, { desc = "[S]earch [K]eymaps" })
-			vim.keymap.set("n", "ff", builtin.find_files, { desc = "[S]earch [F]iles" })
-			vim.keymap.set("n", "<leader>ss", builtin.builtin, { desc = "[S]earch [S]elect Telescope" })
-			vim.keymap.set("n", "<leader>sw", builtin.grep_string, { desc = "[S]earch current [W]ord" })
-			vim.keymap.set("n", "<leader>sg", builtin.live_grep, { desc = "[S]earch by [G]rep" })
-			vim.keymap.set("n", "<leader>sd", builtin.diagnostics, { desc = "[S]earch [D]iagnostics" })
-			vim.keymap.set("n", "<leader>sr", builtin.resume, { desc = "[S]earch [R]esume" })
-			vim.keymap.set("n", "<leader>s.", builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
+			vim.keymap.set("n", "fh", builtin.help_tags, { desc = "[F]ind [H]elp" })
+			vim.keymap.set("n", "fk", builtin.keymaps, { desc = "[F]ind [K]eymaps" })
+			vim.keymap.set("n", "ff", builtin.find_files, { desc = "[F]ind [F]iles" })
+			vim.keymap.set("n", "fs", builtin.builtin, { desc = "[F]ind [S]elect Telescope" })
+			vim.keymap.set("n", "fw", builtin.grep_string, { desc = "[F]ind current [W]ord" })
+			vim.keymap.set("n", "fg", builtin.live_grep, { desc = "[F]ind by [G]rep" })
+			vim.keymap.set("n", "fd", builtin.diagnostics, { desc = "[F]ind [D]iagnostics" })
+			vim.keymap.set("n", "fr", builtin.resume, { desc = "[F]ind [R]esume" })
+			vim.keymap.set("n", "f.", builtin.oldfiles, { desc = '[F]ind Recent Files ("." for repeat)' })
 			vim.keymap.set("n", "<leader><leader>", builtin.buffers, { desc = "[ ] Find existing buffers" })
 
 			-- Slightly advanced example of overriding default behavior and theme
-			vim.keymap.set("n", "<leader>/", function()
+			vim.keymap.set("n", "f/", function()
 				-- You can pass additional configuration to Telescope to change the theme, layout, etc.
 				builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
 					winblend = 10,
@@ -385,17 +335,17 @@ require("lazy").setup({
 
 			-- It's also possible to pass additional configuration options.
 			--  See `:help telescope.builtin.live_grep()` for information about particular keys
-			vim.keymap.set("n", "<leader>s/", function()
+			vim.keymap.set("n", "fs/", function()
 				builtin.live_grep({
 					grep_open_files = true,
 					prompt_title = "Live Grep in Open Files",
 				})
-			end, { desc = "[S]earch [/] in Open Files" })
+			end, { desc = "[F]ind [/] in Open Files" })
 
 			-- Shortcut for searching your Neovim configuration files
-			vim.keymap.set("n", "<leader>sn", function()
+			vim.keymap.set("n", "fsn", function()
 				builtin.find_files({ cwd = vim.fn.stdpath("config") })
-			end, { desc = "[S]earch [N]eovim files" })
+			end, { desc = "[F]ind [N]eovim files" })
 		end,
 	},
 
@@ -582,10 +532,10 @@ require("lazy").setup({
 				underline = { severity = vim.diagnostic.severity.ERROR },
 				signs = vim.g.have_nerd_font and {
 					text = {
-						[vim.diagnostic.severity.ERROR] = "󰅚 ",
-						[vim.diagnostic.severity.WARN] = "󰀪 ",
-						[vim.diagnostic.severity.INFO] = "󰋽 ",
-						[vim.diagnostic.severity.HINT] = "󰌶 ",
+						[vim.diagnostic.severity.ERROR] = "E ",
+						[vim.diagnostic.severity.WARN] = "W ",
+						[vim.diagnostic.severity.INFO] = "I ",
+						[vim.diagnostic.severity.HINT] = "H ",
 					},
 				} or {},
 				virtual_text = {
@@ -619,9 +569,9 @@ require("lazy").setup({
 			--  - settings (table): Override the default settings passed when initializing the server.
 			--        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
 			local servers = {
-				-- clangd = {},
+				clangd = {},
 				-- gopls = {},
-				-- pyright = {},
+				pyright = {},
 				-- rust_analyzer = {},
 				-- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
 				--
